@@ -16,23 +16,17 @@ const AddEmployee = () => {
         phone: "",
         photo: ""
     });
-    const handleChange = (event) => {
-        setUser({ ...user,[event.target.name]: event.target.value });
-    }
-    const handlePhoto = (event) => {
-        setUser({ ...user,photo: event.target.files[0] });
-    }
 
     const handleSubmit = (event) => {
 
         event.preventDefault();
 
         const formData = new FormData();
-        formData.append('photo', user.photo);
         formData.append('firstName', user.firstName);
         formData.append('lastName', user.lastName);
         formData.append('email', user.email);
         formData.append('phone', user.phone);
+        formData.append('photo', user.photo);
 
         axios.post('http://localhost:3002/employees/addEmp', formData)
         .then((response) => {
@@ -43,6 +37,15 @@ const AddEmployee = () => {
         console.log(error);
         });
     }
+    const handleChange = (event) => {
+        setUser({ ...user,[event.target.name]: event.target.value });
+    }
+    const handlePhoto = (event) => {
+        let picture = URL.createObjectURL(event.target.files[0]);
+        console.log(picture);
+        setUser({ ...user,photo: event.target.files[0] });
+    }
+
   
     return (
       <div className="container">
@@ -97,10 +100,10 @@ const AddEmployee = () => {
               name="photo"
               type="file"
               accept=".png, .jpg, .jpeg"
-              value={user.photo}
               onChange={handlePhoto}
               className="form-control"
             />
+            <img src={user.photo} height="200" width="200" alt="img" />
           </label>
           <br />
           <input type="submit" value="submit" className="btn btn-primary" />

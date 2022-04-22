@@ -12,7 +12,8 @@ const EditEmployee = ({match}) => {
         firstName: "",
         lastName: "",
         email: "",
-        phone: ""
+        phone: "",
+        photo: ""
     })
     const {id} = useParams();
 
@@ -29,7 +30,8 @@ const EditEmployee = ({match}) => {
     firstName: response.data.firstName,
     lastName: response.data.lastName,
     email: response.data.email,
-    phone: response.data.phone
+    phone: response.data.phone,
+    photo: response.data.photo
     });
     })
     .catch((error) => {
@@ -43,7 +45,7 @@ const EditEmployee = ({match}) => {
     // To update the record on submit
     const handleSubmit = (event) => {
     event.preventDefault();
-    const { firstName, lastName, email, phone } = emp;
+    const { firstName, lastName, email, phone, photo } = emp;
     axios.post('http://localhost:3002/employees/updateEmp/' + id, {
     firstName: firstName,
         lastName: lastName,

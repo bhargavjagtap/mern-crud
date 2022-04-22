@@ -40,15 +40,16 @@ employeeRoute.get('/', function(req, res, next) {
 employeeRoute.post('/addEmp',upload.single('photo'), function(req, res, next) {
     const firstName = req.body.firstName;
     const lastName = req.body.lastName;
-    console.log(req.file);
-    const photo = req.file.photo;
     const email = req.body.email;
+    const phone = req.body.phone;
+    const photo = req.file.filename;
 
     const newUserData = {
       firstName,
       lastName,
+      email,
+      phone,
       photo,
-      email
     }
 
     const newUser = new empModel(newUserData);

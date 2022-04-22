@@ -43,6 +43,7 @@ const ListEmployee = () => {
             <th>Last Name</th>
             <th>Email</th>
             <th>Phone</th>
+            <th>Photo</th>
             <th></th>
             <th></th>
           </tr>
@@ -57,6 +58,9 @@ const ListEmployee = () => {
                   <td>{employee.lastName}</td>
                   <td>{employee.email}</td>
                   <td>{employee.phone}</td>
+                  <td>
+                    <img src={`http://localhost:3002/public/images/${employee.photo}`} height="200" width="200" alt="" />
+                  </td>
                   <td>
                     <Link
                       to={"editEmployee/" + employee._id}
