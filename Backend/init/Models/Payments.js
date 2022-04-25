@@ -8,6 +8,10 @@ let Payment = new Schema({
         type : Number,
         required: true,
     },
+    Status:{
+        type: String,
+        default: 'Pending'
+    }
 },{
     collection : 'payment'
 });
