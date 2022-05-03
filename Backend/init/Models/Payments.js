@@ -6,7 +6,7 @@ let Payment = new Schema({
     order_id :{type: Schema.Types.ObjectId, ref: 'Order'},
     Amount : {
         type : Number,
-        required: true,
+        required: true, 
     },
     Status:{
         type: String,

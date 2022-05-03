@@ -2,9 +2,11 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 let Order = new Schema({
-    user_id :{type: Schema.Types.ObjectId, ref: 'User'},
+    user_id :{type: Schema.Types.ObjectId, ref: 'User'},    
     order_number : {
-        type : Number
+        type : Number,
+        required: true,
+        unique: true
     },
     itemName : {
         type : String

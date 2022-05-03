@@ -1,4 +1,5 @@
 const orderModel = require('../Models/Order');
+const paymentModel = require('../Models/Payments');
 const User = require('../Models/User1')
 
 const getOrders = (req, res) => {
@@ -99,14 +100,35 @@ try {
 const lookupOrders = (req, res) => {
 try {
     orderModel.aggregate([{
-            $lookup: {
-                from: "payment",
-                localField: "_id",
-                foreignField: "order_id",
-                as: "Orders"
-            }
-        }
-    ]).then((result) => {
+        // $lookup: {
+        //     from: "payment",
+        //     localField: "_id",
+        //     foreignField: "order_id",
+        //     as: "Orders"
+        // }
+        $lookup: {
+            from: "payment",
+            let: {
+                orderId: "$_id",
+                // userId: "$user_id"
+            },
+            pipeline: [{
+                $match: {
+                    $expr: {
+                        $and: [
+                        {
+                            $eq: ["$order_id", "$$orderId"]
+                        },
+                        {
+                            $eq: ["$Status", "Paid"]
+                        }
+                    ]
+                    }
+                }
+            }],
+            as: "Orders"
+        },
+    }]).then((result) => {
         res.json(result);
     });
 } catch {
